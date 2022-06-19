@@ -1,14 +1,14 @@
-#include <pthread.h>
+#include <semaphore.h>
 
-pthread_mutex mutex;
+sem_t *sem;
 
-/* mutex lock 생성 & 초기화 */
-pthread_mutex_init(&mutex, NULL);
+/* 세마포 생성 및 1로 초기화 */
+sem = sem_open("SEM", O_CREAT, 0666, 1);
 
-/* mutex lock 획득 */
-pthread_mutex_locK(&mutex);
+/* 세마포 획득 */
+sem_wait(sem);
 
-/* 임계 구역 */
+/* 임계구역 */
 
-/* mutex lock 양도 */
-pthread_mutex_unlock(&mutex);
+/* 세마포 양도 */
+sem_post(sem);
