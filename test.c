@@ -1,14 +1,19 @@
-#include <semaphore.h>
+/* 조건변수 생성 & 초기화 */
+pthread_mutex_t mutex;
+pthread_cond_t cond_var;
 
-sem_t sem;
+pthread_mutex_init(&mutex, NULL);
+pthread_cond_init(&cond_var, NULL);
 
-/* 세마포 생성 및 1로 초기화 */
-sem_init(&sem, 0, 1);
+/* 조건 a == b를 기다리는 쓰레드 */
+pthread_mutex_lock(&mutex);
+while (a != b)
+  pthread_cond_wait(&cond_var, &mutex);
 
-/* 세마포 획득 */
-sem_wait(&sem);
+pthread_mutex_unlock(&mutex);
 
-/* 임계구역 */
-
-/* 세마포 양도 */
-sem_post(&sem);
+/* 조건변수를 기다리는 다른 쓰레드에게 신호를 보내느 쓰레드 */
+pthread_mutex_lock(&mutex);
+a = b;
+pthread_cond_signal(&cond_var);
+pthread_mutex_unlock(&mutex);
