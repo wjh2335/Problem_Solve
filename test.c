@@ -12,7 +12,7 @@ while (a != b)
 
 pthread_mutex_unlock(&mutex);
 
-/* 조건변수를 기다리는 다른 쓰레드에게 신호를 보내 쓰레드 */
+/* 조건변수를 기다리는 다른 쓰레드에게 신호를 보내는 쓰레드 */
 pthread_mutex_lock(&mutex);
 a = b;
 pthread_cond_signal(&cond_var);
