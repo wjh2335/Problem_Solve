@@ -1,11 +1,17 @@
-void update()
+void A()
 {
-  acquire();
-  /* 공유 데이터 수정 */
-  release();
+  pthread_mutex_lock(&first_mutex);
+  pthread_mutex_lock(&second_mutex);
+  /* Do some work */
+  pthread_mutex_unlock(&second_mutex);
+  pthread_mutex_unlock(&first_mutex);
 }
 
-void update()
+void B()
 {
-  atomic { /* 공유 데이터 수정 */ }
+  pthread_mutex_lock(&second_mutex);
+  pthread_mutex_lock(&first_mutex);
+  /* Do some work */
+  pthread_mutex_unlock(&first_mutex);
+  pthread_mutex_unlock(&second_mutex);
 }
