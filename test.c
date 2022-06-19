@@ -7,8 +7,5 @@ void update()
 
 void update()
 {
-  atomic
-  {
-    /* 공유 데이터 수정 */
-  }
+  atomic { /* 공유 데이터 수정 */ }
 }
